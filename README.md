@@ -24,7 +24,7 @@ namespace App\Http\Controllers;
 class HomeController extends Controller
 {
     /**
-     * Show only homepage.
+     * Only define a single action.
      */
     public function __invoke()
     {
@@ -44,6 +44,7 @@ Route::get('/home-page',[ HomeController::class, 'METHOD_NAME']);
 //After defining a __invoke method
 Route::get('/home-page', HomeController::class);
 ```
+Since that previous-syntax is rather verbose, Laravel provides additional, `__invoke`  methods that use conventions to provide a better developer experience.
 
 You may generate an invokable controller by using the --invokable option of the make:controller Artisan command:
 
