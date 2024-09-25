@@ -3,10 +3,11 @@
 ## Art Of Laravel
 
 - [Controller Tips](#controller-tips)
-
   - [Single Action Controllers](#Single-Action-Controllers)
+- [Wehre Clause](#where-clause)
+  - [Before](#before)
+  - [After](#after)
 - [Contact](#contact)
-
 
   <!-- UPDATE NODE -->
 
@@ -44,12 +45,35 @@ Route::get('/home-page',[ HomeController::class, 'METHOD_NAME']);
 //After defining a __invoke method
 Route::get('/home-page', HomeController::class);
 ```
-Since that previous-syntax is rather verbose, Laravel provides additional, `__invoke`  methods that use conventions to provide a better developer experience.
+
+Since that previous-syntax is rather verbose, Laravel provides additional, `__invoke` methods that use conventions to provide a better developer experience.
 
 You may generate an invokable controller by using the --invokable option of the make:controller Artisan command:
 
 ```php
 php artisan make:controller ProvisionServer --invokable
+```
+
+## Before
+
+```php
+Customer::select('id', 'name', 'email')
+          ->whereJsonContains('address->post_code', $postCode)
+          ->whereJsonContains('address->country', $country)
+          ->get();
+
+```
+
+## After
+
+```php
+Customer::select('id', 'name', 'email')->where(
+            function ($query) use ($country, $postCode) {
+                return $query
+                    ->whereJsonContains('address->post_code', $postCode)
+                    ->whereJsonContains('address->country', $country);
+            }
+        )->get();
 ```
 
 ## Contact
