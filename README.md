@@ -7,6 +7,7 @@
 - [Wehre Clause](#where-clause)
   - [Before](#before)
   - [After](#after)
+- [How to find which column changed in update method](#How-to-find-which-column-changed-in-update-method)
 - [Contact](#contact)
 
   <!-- UPDATE NODE -->
@@ -74,6 +75,13 @@ Customer::select('id', 'name', 'email')->where(
                     ->whereJsonContains('address->country', $country);
             }
         )->get();
+```
+
+## How to find which column changed in update method
+
+```php
+    $notChangeAbleColumns = ['last_name', 'column-1', 'column-2'];
+    return $user->wasChanged($notChangeAbleColumns);
 ```
 
 ## Contact
